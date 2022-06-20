@@ -10,11 +10,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PlatformerGame extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private Texture personTexture, platformTexture1, platformTexture2, platformTexture3;
+	private Texture personTexture, platformTexture;
 	private Person person;
 	private PlatformContainer platformContainer = new PlatformContainer();
 	private PointsCalculator pointsCalculator;
     private BitmapFont font;
+    private PersonCostumeChanger personCostumeChanger;
 	
 	@Override
 	public void create() {
@@ -28,28 +29,27 @@ public class PlatformerGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 		pointsCalculator = new PointsCalculator();
-		platformTexture1 = new Texture("core/assets/platform_img.png");
-		platformTexture2 = new Texture("core/assets/platform_img.png");
-		platformTexture3 = new Texture("core/assets/platform_img.png");
-		personTexture = new Texture("core/assets/person_img.png");
+		platformTexture = new Texture("core/assets/platform.png");
+		personTexture = new Texture("core/assets/sprinter_right_1.png");
 		person = new Person(350, 400);
+
+		Texture[] leftTextures = {new Texture("core/assets/sprinter_left_1.png"),
+			new Texture("core/assets/sprinter_left_2.png")};
+		Texture[] rightTextures = {new Texture("core/assets/sprinter_right_1.png"),
+				new Texture("core/assets/sprinter_right_2.png")};
+
+		personCostumeChanger = new PersonCostumeChanger(leftTextures, rightTextures, personTexture);
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.7f, 0.7f, 0.7f, 1);
 		batch.begin();
-		batch.draw(platformTexture1,
-				platformContainer.platforms[0].x,
-				platformContainer.platforms[0].y);
-		batch.draw(platformTexture2,
-				platformContainer.platforms[1].x,
-				platformContainer.platforms[1].y);
-		batch.draw(platformTexture3,
-				platformContainer.platforms[2].x,
-				platformContainer.platforms[2].y);
-		batch.draw(personTexture, Person.x, Person.y);
-		font.draw(batch, "points: " + Integer.toString(pointsCalculator.getPoints()),30, 550);
+		for (Platform platform:platformContainer.platforms) {
+			batch.draw(platformTexture, platform.x, platform.y);
+		}
+		batch.draw(personCostumeChanger.personTexture, Person.x, Person.y);
+		font.draw(batch, "points: " + pointsCalculator.getPoints(),30, 550);
 		batch.end();
 		update();
 	}
@@ -58,14 +58,13 @@ public class PlatformerGame extends ApplicationAdapter {
 		person.update();
 		platformContainer.update();
 		pointsCalculator.update();
+		personCostumeChanger.update();
 	}
 	
 	@Override
 	public void dispose() {
 		batch.dispose();
 		personTexture.dispose();
-		platformTexture1.dispose();
-		platformTexture2.dispose();
-		platformTexture3.dispose();
+		platformTexture.dispose();
 	}
 }
