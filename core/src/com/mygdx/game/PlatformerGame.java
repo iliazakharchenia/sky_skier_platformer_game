@@ -29,14 +29,14 @@ public class PlatformerGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 		pointsCalculator = new PointsCalculator();
-		platformTexture = new Texture("core/assets/platform.png");
-		personTexture = new Texture("core/assets/sprinter_right_1.png");
+		platformTexture = new Texture(Gdx.files.local("platform.png"));
+		personTexture = new Texture(Gdx.files.local("sprinter_right_1.png"));
 		person = new Person(350, 400);
 
-		Texture[] leftTextures = {new Texture("core/assets/sprinter_left_1.png"),
-			new Texture("core/assets/sprinter_left_2.png")};
-		Texture[] rightTextures = {new Texture("core/assets/sprinter_right_1.png"),
-				new Texture("core/assets/sprinter_right_2.png")};
+		Texture[] leftTextures = {new Texture(Gdx.files.local("sprinter_left_1.png")),
+			new Texture(Gdx.files.local("sprinter_left_2.png"))};
+		Texture[] rightTextures = {new Texture(Gdx.files.local("sprinter_right_1.png")),
+				new Texture(Gdx.files.local("sprinter_right_2.png"))};
 
 		personCostumeChanger = new PersonCostumeChanger(leftTextures, rightTextures, personTexture);
 	}
