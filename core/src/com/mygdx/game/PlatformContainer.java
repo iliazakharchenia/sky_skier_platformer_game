@@ -22,7 +22,10 @@ public class PlatformContainer {
 
     private void rebuildPlatforms() {
         for (Platform platform : platforms) {
-            if (platform.y>800) platform.y = findLowestPlatformLevel()-300;
+            if (platform.y>800) {
+                platform.y = findLowestPlatformLevel()-300;
+                platform.x = random.nextInt(550);
+            }
         }
     }
 
