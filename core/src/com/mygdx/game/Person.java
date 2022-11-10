@@ -5,22 +5,22 @@ import com.badlogic.gdx.Input;
 
 public class Person {
     public static int x;
-    public static int y;
+    public static float y;
     public static boolean onPlatform = false;
     private int width = 40;    //
     private int height = 40;    //
-    private float speedX = 0;
-    private float speedY = 0;
-    private final int timeShift = 5;      // 5/60 sec
+    public static float speedX = 0;
+    public static float speedY = 0;
+    private final int timeShift = 3;      // 3 frames
     private int timer = timeShift;
 
     public void update() {
         if (timer <= 0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && onPlatform) {
-                speedX += 0.5;
+                speedX += 0.7;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && onPlatform) {
-                speedX -= 0.5;
+                speedX -= 0.7;
             }
             timer = timeShift; //reload timer
         }
@@ -31,10 +31,23 @@ public class Person {
         timer--;
     }
 
+    public void resetPerson() {
+        x = 350;
+        y = 400;
+        onPlatform = false;
+        this.setSpeedX(0);
+        this.setSpeedY(0);
+        timer = timeShift;
+    }
+
     public Person(int x, int y) {
         this.x = x;
         this.y = y;
         onPlatform = false;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 
     public float getSpeedX() {
@@ -73,7 +86,7 @@ public class Person {
         this.x = x;
     }
 
-    public static int getY() {
+    public static float getY() {
         return y;
     }
 

@@ -10,7 +10,7 @@ public class PersonCostumeChanger {
     public Texture personTexture;
     private int currentLeftCostumeNum = 0;
     private int currentRightCostumeNum = 0;
-    private final int delay = 10; //10 frames delay for costume change
+    private final int delay = 5; //5 frames delay for costume change
     private int timer = 0;
     private boolean lastRightKeyPressed = true; //if false - left key
 

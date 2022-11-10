@@ -9,6 +9,7 @@ public class PlatformContainer {
     public void update() {
         isPersonOnPlatform();
         rebuildPlatforms();
+        Person.speedY = platforms[0].speedY;
         if (!Person.onPlatform) {
             for (Platform platform : platforms) {
                 platform.update();
@@ -22,7 +23,7 @@ public class PlatformContainer {
 
     private void rebuildPlatforms() {
         for (Platform platform : platforms) {
-            if (platform.y>800) {
+            if (platform.y > 800) {
                 platform.y = findLowestPlatformLevel()-300;
                 platform.x = random.nextInt(550);
             }
@@ -50,6 +51,19 @@ public class PlatformContainer {
             if (platform.y<lowestPlatformY) lowestPlatformY = platform.y;
         }
         return lowestPlatformY;
+    }
+
+    public void resetPlatforms() {
+        platforms[0].setX(300);
+        platforms[0].setY(300);
+        platforms[1].setX(random.nextInt(550));
+        platforms[1].setY(platforms[0].getY()-300);
+        platforms[2].setX(random.nextInt(550));
+        platforms[2].setY(platforms[1].getY()-300);
+        for (Platform platform : platforms) {
+            platform.setSpeedY(0);
+            platform.setSpeedX(0);
+        }
     }
 
     {

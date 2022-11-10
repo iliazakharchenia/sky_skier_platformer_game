@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 public class Platform {
-    private final int timeShift = 5;      // 5/60 sec
+    private final int timeShift = 3;      // 3 frames
 
     public int x;
     public int y;
@@ -50,7 +50,6 @@ public class Platform {
         this.y = y;
     }
 
-    @Deprecated
     public int getWidth() {
         return width;
     }
