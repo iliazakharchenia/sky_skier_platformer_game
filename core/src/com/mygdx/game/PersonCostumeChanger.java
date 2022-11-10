@@ -13,6 +13,11 @@ public class PersonCostumeChanger {
     private final int delay = 5; //5 frames delay for costume change
     private int timer = 0;
     private boolean lastRightKeyPressed = true; //if false - left key
+    private Person person;
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public PersonCostumeChanger(Texture[] leftCostumes, Texture[] rightCostumes,
                                 Texture personStartTexture) {
@@ -28,38 +33,38 @@ public class PersonCostumeChanger {
         }
         timer = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Person.onPlatform) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && person.isOnPlatform()) {
             currentLeftCostumeNum = 0;
             if (currentRightCostumeNum<rightCostumes.length-1) currentRightCostumeNum++;
             else currentRightCostumeNum = 0;
             personTexture = rightCostumes[currentRightCostumeNum];
             lastRightKeyPressed = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Person.onPlatform) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && person.isOnPlatform()) {
             currentRightCostumeNum = 0;
             if (currentLeftCostumeNum<leftCostumes.length-1) currentLeftCostumeNum++;
             else currentLeftCostumeNum = 0;
             personTexture = leftCostumes[currentLeftCostumeNum];
             lastRightKeyPressed = false;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Person.onPlatform) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !person.isOnPlatform()) {
             currentLeftCostumeNum = 0;
             currentRightCostumeNum = 0;
             personTexture = rightCostumes[0];
             lastRightKeyPressed = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Person.onPlatform) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !person.isOnPlatform()) {
             currentLeftCostumeNum = 0;
             currentRightCostumeNum = 0;
             personTexture = leftCostumes[0];
             lastRightKeyPressed = false;
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Person.onPlatform && lastRightKeyPressed) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && person.isOnPlatform() && lastRightKeyPressed) {
             currentLeftCostumeNum = 0;
             currentRightCostumeNum = 0;
             personTexture = rightCostumes[0];
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && Person.onPlatform && !lastRightKeyPressed) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && person.isOnPlatform() && !lastRightKeyPressed) {
             currentLeftCostumeNum = 0;
             currentRightCostumeNum = 0;
             personTexture = leftCostumes[0];

@@ -34,6 +34,7 @@ public class PlatformerGame extends ApplicationAdapter {
 		personTexture = new Texture(Gdx.files.local("sprinter_right_1.png"));
 		person = new Person(350, 400);
 		pointsCalculator.setPerson(person);
+		platformContainer.setPerson(person);
 
 		Texture[] leftTextures = {new Texture(Gdx.files.local("sprinter_left_1.png")),
 			new Texture(Gdx.files.local("sprinter_left_2.png"))};
@@ -41,16 +42,17 @@ public class PlatformerGame extends ApplicationAdapter {
 				new Texture(Gdx.files.local("sprinter_right_2.png"))};
 
 		personCostumeChanger = new PersonCostumeChanger(leftTextures, rightTextures, personTexture);
+		personCostumeChanger.setPerson(person);
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.7f, 0.7f, 0.7f, 1);
 		batch.begin();
-		for (Platform platform: platformContainer.platforms) {
+		for (Platform platform: platformContainer.getPlatforms()) {
 			batch.draw(platformTexture, platform.x, platform.y);
 		}
-		batch.draw(personCostumeChanger.personTexture, Person.x, Person.y);
+		batch.draw(personCostumeChanger.personTexture, person.getX(), person.getY());
 		font.draw(batch, "points: " + pointsCalculator.getPoints(),30, 550);
 		batch.end();
 		update();

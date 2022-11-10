@@ -12,11 +12,11 @@ public class PointsCalculator {
             resetPoints();
             return;
         }
-        if (Person.onPlatform && !stillOnPlatform) {
+        if (person.isOnPlatform() && !stillOnPlatform) {
             this.stillOnPlatform = true;
             points++;
         }
-        if (!Person.onPlatform && stillOnPlatform) {
+        if (!person.isOnPlatform() && stillOnPlatform) {
             this.stillOnPlatform = false;
         }
     }
@@ -30,7 +30,7 @@ public class PointsCalculator {
     }
 
     private void calculateHeight() {
-        if (Person.onPlatform) heightOfFlight = 0;
+        if (person.isOnPlatform()) heightOfFlight = 0;
         else if (person.getTimer() == 1) heightOfFlight += person.getSpeedY();
         if (heightOfFlight > 700) PlatformerGame.needToReset = true;
     }

@@ -3,14 +3,23 @@ package com.mygdx.game;
 import java.util.Random;
 
 public class PlatformContainer {
-    public Platform[] platforms = new Platform[3];
+    private Platform[] platforms = new Platform[3];
     private Random random = new Random();
+    private Person person;
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Platform[] getPlatforms() {
+        return platforms;
+    }
 
     public void update() {
         isPersonOnPlatform();
         rebuildPlatforms();
-        Person.speedY = platforms[0].speedY;
-        if (!Person.onPlatform) {
+        person.setSpeedY(platforms[0].speedY);
+        if (!person.isOnPlatform()) {
             for (Platform platform : platforms) {
                 platform.update();
             }
@@ -32,15 +41,15 @@ public class PlatformContainer {
 
     private boolean isPersonOnPlatform() {
         for (Platform platform: platforms) {
-            if (platform.y<Person.y
-                    && Person.y<(platform.y+20)
-                    && Person.x-20<(platform.x+230)
-                    && platform.x-20<Person.x-20) {
-                Person.onPlatform = true;
+            if (platform.y<person.getY()
+                    && person.getY()<(platform.y+20)
+                    && person.getX()-20<(platform.x+230)
+                    && platform.x-20<person.getX()-20) {
+                person.setOnPlatform(true);
                 return true;
             }
         }
-        Person.onPlatform = false;
+        person.setOnPlatform(false);
         return false;
     }
 
